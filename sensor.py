@@ -24,6 +24,7 @@ def setup_platform(
 ) -> None:
     """Set up the sensor platform."""
     global ip
+    global name
 #    add_entities([smartevse_charging_rate()])
 #    add_entities([smartevse_charging_time()])
 #    add_entities([smartevse_charging_time_uitgesteld()])
@@ -56,9 +57,10 @@ def setup_platform(
 
     devices = get_devices()
     for device in devices:
-        serial_number = device[0].replace("._http._tcp.local", "").replace("SmartEVSE-", "")
+        name = device[0].replace("._http._tcp.local.", "")
+        serial_number = device[0].replace("._http._tcp.local.", "").replace("SmartEVSE-", "")
         ip=device[1]
-        print("Name: %s, IP:%s, serial:%s" % (device[0],ip,serial_number))
+        print("Name: %s, IP:%s, serial:%s." % (name,ip,serial_number))
 
 class poll_API(object):
     def __init__(self):
