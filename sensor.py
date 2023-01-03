@@ -2,6 +2,7 @@
 from __future__ import annotations
 import datetime
 import time
+from custom_components.smartevse.get_smart import get_devices
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -22,6 +23,7 @@ def setup_platform(
     discovery_info: DiscoveryInfoType | None = None
 ) -> None:
     """Set up the sensor platform."""
+    global ip
 #    add_entities([smartevse_charging_rate()])
 #    add_entities([smartevse_charging_time()])
 #    add_entities([smartevse_charging_time_uitgesteld()])
@@ -52,23 +54,28 @@ def setup_platform(
     add_entities([smartevse_l3()])
     add_entities([smartevse_last_data_update()])
 
+    devices = get_devices()
+    for device in devices:
+        serial_number = device[0].replace("._http._tcp.local", "").replace("SmartEVSE-", "")
+        ip=device[1]
+        print("Name: %s, IP:%s, serial:%s" % (device[0],ip,serial_number))
+
 class poll_API(object):
     def __init__(self):
         self.last_poll = ''
-
     def get(self):
         now = time.time()
         #if self.last_poll != '':
             #print(now - self.last_poll)
         if (self.last_poll == '') or (now - self.last_poll > 60) :
-            print("DINGO: bothering SmartEVSE for new data!")
+            print("DINGO: bothering SmartEVSE @ %s for new data!" % (ip))
             print(datetime.datetime.fromtimestamp(now))
-            api_url = "http://10.0.0.76/settings"
+            api_url = "http://" + ip + "/settings"
             self.response = requests.get(api_url)
             self.last_poll = now
         return self.response.json()
 
-poll = poll_API()
+poll = poll_API() #TODO now we only handle 1 smartevse device on the LAN, find out how to bundle the entities into a hass device!
 
 #    - name: smartevse_charging_rate
 #      unit_of_measurement: "km/h"
