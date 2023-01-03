@@ -2,7 +2,6 @@
 from __future__ import annotations
 import datetime
 import time
-from custom_components.smartevse.get_smart import get_devices
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -15,6 +14,39 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 
 import requests
+
+#generates list of smartevses and their ip addresses on the network
+from zeroconf import ServiceBrowser, Zeroconf
+
+class MyListener:
+
+    devices = []
+
+    def update_service(self, zeroconf, type, name):
+        #dummy line
+        tmp = 0
+
+    def remove_service(self, zeroconf, type, name):
+        print("Service %s removed" % (name,))
+
+    def add_service(self, zeroconf, type, name):
+        info = zeroconf.get_service_info(type, name)
+        if info:
+            #if name.startswith(""):
+            if name.startswith("SmartEVSE"):
+                self.device = []
+                self.device.append(name)
+                self.device.append(info.parsed_addresses()[0])
+                self.devices.append(self.device)
+
+def get_devices():
+    #zeroconf = await zeroconf.async_get_instance(hass)
+    zeroconf = Zeroconf()
+    listener = MyListener()
+    browser = ServiceBrowser(zeroconf, "_http._tcp.local.", listener)
+    time.sleep(8)
+    zeroconf.close()
+    return listener.devices
 
 def setup_platform(
     hass: HomeAssistant,
