@@ -1,22 +1,11 @@
 """Platform for switch integration."""
 from __future__ import annotations
-import datetime
-import time
 
-from homeassistant.components.sensor import (
-    SensorDeviceClass,
-    SensorEntity,
-    SensorStateClass,
-)
-from homeassistant.const import TEMP_CELSIUS, ELECTRIC_CURRENT_AMPERE, ENERGY_KILO_WATT_HOUR
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 
 import requests
-
-#generates list of smartevses and their ip addresses on the network
-from zeroconf import ServiceBrowser, Zeroconf
 
 from . import sensor
 
