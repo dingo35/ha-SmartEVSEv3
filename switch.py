@@ -121,3 +121,13 @@ class smartevse_mode_switch(SwitchEntity):
         """Turn the switch off."""
         res = os.system("curl -s -X POST http://SmartEVSE-51446.lan/settings?mode=0 -H 'accept: application/json' -H 'Content-Type: application/json' -d '{}'")
         self._is_on = False
+
+    def update(self) -> None:
+        api_url = "http://10.0.0.76/settings"
+        #api_url = "http://" + ip + "/settings"
+        self.response = requests.get(api_url)
+        self.mode_id = self.response.json()["mode_id"]
+        if (self.mode_id == 0):
+            self._is_on = False
+        else:
+            self._is_on = True
