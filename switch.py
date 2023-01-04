@@ -60,17 +60,9 @@ def setup_platform(
     discovery_info: DiscoveryInfoType | None = None
 ) -> None:
     """Set up the sensor platform."""
-    global ip
     global name
     global serial_number
     add_entities([smartevse_mode_switch()])
-
-    devices = get_devices()
-    for device in devices:
-        name = device[0].replace("._http._tcp.local.", "")
-        serial_number = device[0].replace("._http._tcp.local.", "").replace("SmartEVSE-", "")
-        ip=device[1]
-        print("Name: %s, IP:%s, serial:%s." % (name,ip,serial_number))
 
 class poll_API(object):
     def __init__(self):
@@ -80,9 +72,10 @@ class poll_API(object):
         #if self.last_poll != '':
             #print(now - self.last_poll)
         if (self.last_poll == '') or (now - self.last_poll > 60) :
-            print("DINGO: bothering SmartEVSE @ %s for new data!" % (ip))
+            print("DINGO in switch: bothering SmartEVSE @ %s for new data!" % (ip))
             print(datetime.datetime.fromtimestamp(now))
-            api_url = "http://" + ip + "/settings"
+            print("DINGO: IP=%s." % (sensor.ip))
+            api_url = "http://" + sensor.ip + "/settings"
             self.response = requests.get(api_url)
             self.last_poll = now
         return self.response.json()
@@ -116,12 +109,12 @@ class smartevse_mode_switch(SwitchEntity):
 
     def turn_on(self, **kwargs):
         """Turn the switch on."""
-        res = os.system("curl -s -X POST http://SmartEVSE-51446.lan/settings?mode=3 -H 'accept: application/json' -H 'Content-Type: application/json' -d '{}'")
+        res = os.system("curl -s -X POST http://" + sensor.ip + "/settings?mode=3 -H 'accept: application/json' -H 'Content-Type: application/json' -d '{}'")
         self._is_on = True
 
     def turn_off(self, **kwargs):
         """Turn the switch off."""
-        res = os.system("curl -s -X POST http://SmartEVSE-51446.lan/settings?mode=0 -H 'accept: application/json' -H 'Content-Type: application/json' -d '{}'")
+        res = os.system("curl -s -X POST http://" + sensor.ip + "/settings?mode=0 -H 'accept: application/json' -H 'Content-Type: application/json' -d '{}'")
         self._is_on = False
 
     def update(self) -> None:
