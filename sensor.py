@@ -61,6 +61,7 @@ def setup_platform(
 #    add_entities([smartevse_charging_time()])
 #    add_entities([smartevse_charging_time_uitgesteld()])
     add_entities([smartevse_mode()])
+    add_entities([smartevse_mode_id()])
     add_entities([smartevse_car_connected()])
     add_entities([smartevse_temp()])
     add_entities([smartevse_access()])
@@ -142,6 +143,10 @@ class smartevse_mode(SensorEntity):
     _attr_name = "smartevse_mode"
     def update(self) -> None:
         self._attr_native_value = poll.get()['mode']
+class smartevse_mode_id(SensorEntity):
+    _attr_name = "smartevse_mode_id"
+    def update(self) -> None:
+        self._attr_native_value = poll.get()['mode_id']
 class smartevse_car_connected(SensorEntity):
     _attr_name = "smartevse_car_connected"
     def update(self) -> None:
