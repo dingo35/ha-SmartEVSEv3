@@ -1,4 +1,4 @@
-"""Platform for sensor integration."""
+"""Platform for switch integration."""
 from __future__ import annotations
 import datetime
 import time
@@ -17,6 +17,8 @@ import requests
 
 #generates list of smartevses and their ip addresses on the network
 from zeroconf import ServiceBrowser, Zeroconf
+
+from . import sensor
 
 DOMAIN="smartevse"
 CONF_NAME="name"
@@ -123,10 +125,7 @@ class smartevse_mode_switch(SwitchEntity):
         self._is_on = False
 
     def update(self) -> None:
-        api_url = "http://10.0.0.76/settings"
-        #api_url = "http://" + ip + "/settings"
-        self.response = requests.get(api_url)
-        self.mode_id = self.response.json()["mode_id"]
+        self.mode_id = sensor.poll.get(True)['mode_id']
         if (self.mode_id == 0):
             self._is_on = False
         else:

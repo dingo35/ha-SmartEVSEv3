@@ -98,11 +98,11 @@ def setup_platform(
 class poll_API(object):
     def __init__(self):
         self.last_poll = ''
-    def get(self):
+    def get(self, force = False):
         now = time.time()
         #if self.last_poll != '':
             #print(now - self.last_poll)
-        if (self.last_poll == '') or (now - self.last_poll > 60) :
+        if (force) or (self.last_poll == '') or (now - self.last_poll > 60) :
             print("DINGO: bothering SmartEVSE @ %s for new data!" % (ip))
             print(datetime.datetime.fromtimestamp(now))
             api_url = "http://" + ip + "/settings"
