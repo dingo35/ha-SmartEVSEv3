@@ -3,7 +3,6 @@ from __future__ import annotations
 
 from homeassistant.components.switch import SwitchEntity
 import requests
-
 from . import sensor
 
 def setup_platform(
@@ -12,11 +11,8 @@ def setup_platform(
     add_entities: AddEntitiesCallback,
     discovery_info: DiscoveryInfoType | None = None
 ) -> None:
-    """Set up the sensor platform."""
-    global name
-    global serial_number
+    """Set up the switch platform."""
     add_entities([smartevse_mode_switch()])
-
 
 
 class smartevse_mode_switch(SwitchEntity):
