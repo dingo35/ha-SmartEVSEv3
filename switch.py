@@ -3,8 +3,8 @@ from __future__ import annotations
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
-
+#from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
+from homeassistant.components.switch import SwitchEntity
 import requests
 
 from . import sensor
@@ -20,8 +20,6 @@ def setup_platform(
     global serial_number
     add_entities([smartevse_mode_switch()])
 
-import os
-from homeassistant.components.switch import SwitchEntity
 
 
 class smartevse_mode_switch(SwitchEntity):
@@ -47,13 +45,17 @@ class smartevse_mode_switch(SwitchEntity):
 
     def turn_on(self, **kwargs):
         """Turn the switch on."""
-        res = os.system("curl -s -X POST http://" + sensor.ip + "/settings?mode=3 -H 'accept: application/json' -H 'Content-Type: application/json' -d '{}'")
-        self._is_on = True
+        api_url = "http://" + sensor.ip + "/settings?mode=3"
+        res = requests.post(api_url, {})
+        if (res == "<Response [200]>"):
+            self._is_on = True
 
     def turn_off(self, **kwargs):
         """Turn the switch off."""
-        res = os.system("curl -s -X POST http://" + sensor.ip + "/settings?mode=0 -H 'accept: application/json' -H 'Content-Type: application/json' -d '{}'")
-        self._is_on = False
+        api_url = "http://" + sensor.ip + "/settings?mode=0"
+        res = requests.post(api_url, {})
+        if (res == "<Response [200]>"):
+            self._is_on = False
 
     def update(self) -> None:
         self.mode_id = sensor.poll.get(True)['mode_id']
