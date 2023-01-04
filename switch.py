@@ -1,9 +1,6 @@
 """Platform for switch integration."""
 from __future__ import annotations
 
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
-#from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 from homeassistant.components.switch import SwitchEntity
 import requests
 
@@ -28,15 +25,11 @@ class smartevse_mode_switch(SwitchEntity):
 
     def __init__(self):
         self._is_on = False
-#        self._attr_device_info = "Device INFO2"  # For automatic device registration
         self._attr_unique_id = "Unique ID2"
         self._attr_device_info = {
-#            "identifiers": {(DOMAIN, self._config[serial_number])},
-#            "name": self._config[CONF_NAME],
             "manufacturer": "Stegen",
-            "name" : "SMARTEVSE NAAM"
+            "name" : "SmartEVSEv3"
         }
-
 
     @property
     def is_on(self):
