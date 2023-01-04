@@ -20,39 +20,6 @@ from zeroconf import ServiceBrowser, Zeroconf
 
 from . import sensor
 
-DOMAIN="smartevse"
-CONF_NAME="name"
-
-class MyListener:
-
-    devices = []
-
-    def update_service(self, zeroconf, type, name):
-        #dummy line
-        tmp = 0
-
-    def remove_service(self, zeroconf, type, name):
-        print("Service %s removed" % (name,))
-
-    def add_service(self, zeroconf, type, name):
-        info = zeroconf.get_service_info(type, name)
-        if info:
-            #if name.startswith(""):
-            if name.startswith("SmartEVSE"):
-                self.device = []
-                self.device.append(name)
-                self.device.append(info.parsed_addresses()[0])
-                self.devices.append(self.device)
-
-def get_devices():
-    #zeroconf = await zeroconf.async_get_instance(hass)
-    zeroconf = Zeroconf()
-    listener = MyListener()
-    browser = ServiceBrowser(zeroconf, "_http._tcp.local.", listener)
-    time.sleep(8)
-    zeroconf.close()
-    return listener.devices
-
 def setup_platform(
     hass: HomeAssistant,
     config: ConfigType,
@@ -63,24 +30,6 @@ def setup_platform(
     global name
     global serial_number
     add_entities([smartevse_mode_switch()])
-
-class poll_API(object):
-    def __init__(self):
-        self.last_poll = ''
-    def get(self):
-        now = time.time()
-        #if self.last_poll != '':
-            #print(now - self.last_poll)
-        if (self.last_poll == '') or (now - self.last_poll > 60) :
-            print("DINGO in switch: bothering SmartEVSE @ %s for new data!" % (ip))
-            print(datetime.datetime.fromtimestamp(now))
-            print("DINGO: IP=%s." % (sensor.ip))
-            api_url = "http://" + sensor.ip + "/settings"
-            self.response = requests.get(api_url)
-            self.last_poll = now
-        return self.response.json()
-
-poll = poll_API() #TODO now we only handle 1 smartevse device on the LAN, find out how to bundle the entities into a hass device!
 
 import os
 from homeassistant.components.switch import SwitchEntity
