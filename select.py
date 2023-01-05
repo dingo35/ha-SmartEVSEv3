@@ -76,5 +76,25 @@ class ModeSelect(SelectEntity):
 
     async def async_select_option(self, option: str) -> None:
         """Update the current selected option."""
-        self._attr_current_option = option
-        self.async_write_ha_state()
+        self.api_url = "http://" + sensor.ip + "/settings?mode="
+        if (option == "OFF"):
+            mode = 0
+        elif (option == "NORMAL"):
+            mode = 1
+        elif (option == "SOLAR"):
+            mode = 2
+        elif (option == "SMART"):
+            mode = 3
+        else:
+            mode = -1 #unknown mode
+        if (mode != -1):
+            self.api_url = "http://" + sensor.ip + "/settings?mode=" + str(mode)
+            await self.hass.async_add_executor_job(self.update)
+            #await async_add_executor_job(self.update)
+            #await hass.async_add_executor_job(self.update)
+
+    def update(self):
+        res = requests.post(self.api_url, {})
+        if (res == "<Response [200]>"):
+            self._attr_current_option = option
+            self.async_write_ha_state()

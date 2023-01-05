@@ -7,4 +7,5 @@ sensor:
   - platform: smartevse
 switch:
   - platform: smartevse
-
+select:
+  - platform: smartevse
