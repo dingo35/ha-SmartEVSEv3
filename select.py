@@ -51,8 +51,6 @@ async def async_setup_entry(
 class ModeSelect(SelectEntity):
     """Representation of select entity."""
 
-    _attr_should_poll = False #TODO not sure about this
-
     def __init__(
         self,
         unique_id: str,
@@ -89,11 +87,12 @@ class ModeSelect(SelectEntity):
             mode = -1 #unknown mode
         if (mode != -1):
             self.api_url = "http://" + sensor.ip + "/settings?mode=" + str(mode)
-            await self.hass.async_add_executor_job(self.update)
-            #await async_add_executor_job(self.update)
-            #await hass.async_add_executor_job(self.update)
+            await self.hass.async_add_executor_job(self.write)
 
     def update(self):
+        self._attr_current_option = sensor.poll.get(True)['mode']
+
+    def write(self):
         res = requests.post(self.api_url, {})
         if (res == "<Response [200]>"):
             self._attr_current_option = option
