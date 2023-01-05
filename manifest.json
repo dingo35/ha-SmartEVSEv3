@@ -4,7 +4,7 @@
 	"version": "0.0.1",
   "documentation": "https://github.com/dingo35/ha-SmartEVSEv3",
 	"issue_tracker": "https://github.com/dingo35/ha-SmartEVSEv3/issues",
-  "codeowners": [],
+  "codeowners": ["@dingo35"],
 	"config_flow": false,
   "iot_class": "local_polling"
 }
