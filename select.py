@@ -26,7 +26,7 @@ async def async_setup_platform(
                 unique_id="smartevse_mode",
                 name="SmartEVSE Mode",
                 icon="mdi:power",
-                current_option="SMART",
+                current_option="",
                 options=[
                     "OFF",
                     "NORMAL",
