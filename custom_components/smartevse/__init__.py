@@ -105,7 +105,6 @@ class SmartEVSE(DataUpdateCoordinator):
 
     async def _async_update_data(self) -> dict[str, Any]:
         """Update data via library."""
-        print("DEBUG: async_update_data")
         self.response = await self.hass.async_add_executor_job(self.get_data)
         self._data["smartevse_mode"] = self.response['mode']
         self._data["smartevse_mode_id"] = self.response['mode_id']
@@ -134,7 +133,6 @@ class SmartEVSE(DataUpdateCoordinator):
         self._data["smartevse_l2"] = self.response['phase_currents']['L2'] / 10
         self._data["smartevse_l3"] = self.response['phase_currents']['L3'] / 10
         self._data["smartevse_last_data_update"] = datetime.datetime.fromtimestamp(self.response['phase_currents']['last_data_update'])
-        print("DEBUG: json=%s." % (self.response))
         return self._data
 
     def get_data(self):

@@ -60,14 +60,8 @@ class SmartEVSEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         serial_number = discovery_info.hostname.replace(".local.", "").replace(
             "SmartEVSE-", ""
         )
-
-        print("DEBUG: hostname:%s." % (discovery_info.hostname))
-        print("DEBUG: serial number:%s." % (serial_number))
-
         await self.async_set_unique_id(serial_number)
         self._abort_if_unique_id_configured()
-        print("DEBUG: ip adres:%s" % (discovery_info.host))
-
 
         # Attempt to make a connection to the local device and abort if not possible
         try:
@@ -101,7 +95,6 @@ class SmartEVSEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
             if not errors:
                 self._serial = user_input[CONF_SERIAL]
-                print("DEBUG: user_input[CONF_SERIAL]=%s,CONF_SERIAL=%s,user_input=%s." % (user_input[CONF_SERIAL], CONF_SERIAL, user_input))
                 return await self.async_step_options()
 
         schema = vol.Schema(
