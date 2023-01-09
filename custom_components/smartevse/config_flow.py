@@ -20,24 +20,7 @@ from homeassistant.data_entry_flow import FlowResult
 
 _LOGGER = logging.getLogger(__name__)
 
-import platform    # For getting the operating system name
-import subprocess  # For executing a shell command
 import requests
-
-def ping(host):
-    """
-    Returns True if host (str) responds to a ping request.
-    Remember that a host may not respond to a ping (ICMP) request even if the host name is valid.
-    """
-
-    # Option for the number of packets as a function of
-    param = '-n' if platform.system().lower()=='windows' else '-c'
-
-    # Building the command. Ex: "ping -c 1 google.com"
-    command = ['ping', param, '1', host]
-
-    return subprocess.call(command) == 0
-
 
 class SmartEVSEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for SmartEVSE."""
@@ -77,9 +60,6 @@ class SmartEVSEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def validate_smartevse_connection(self, serial:Str ):
         host = "smartevse-" + serial + ".lan"
         self._serial = serial
-        #ok = ping(host)
-        #if (not ok): #TODO disabled for debug purposes
-        #    raise CannotConnect("Ping cannot find %s." % (host))
         self.response = await self.hass.async_add_executor_job(self.get_data)
         print("DEBUG: response=%s." % (self.response))
 
