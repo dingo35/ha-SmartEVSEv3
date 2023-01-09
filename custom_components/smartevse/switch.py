@@ -51,13 +51,6 @@ class SmartEVSESwitch(SmartEVSEEntity, SwitchEntity):
         self._off_value = off_value
 
     @property
-    def is_on(self) -> bool:
-        """Get whether the switch is in on state."""
-        return bool(
-            self.coordinator.data.get(self.entity_description.key) == self._on_value
-        )
-
-    @property
     def assumed_state(self) -> bool:
         """Return true if we do optimistic updates."""
         return False
@@ -67,14 +60,12 @@ class SmartEVSESwitch(SmartEVSEEntity, SwitchEntity):
         ip = "SmartEVSE-" + self._client.serial + ".local"
         self.api_url = "http://" + ip + "/settings?mode=3"
         await self.hass.async_add_executor_job(self.write)
-        self._data["mode_id"] = 3
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the entity off."""
         ip = "SmartEVSE-" + self._client.serial + ".local"
         self.api_url = "http://" + ip + "/settings?mode=0"
         await self.hass.async_add_executor_job(self.write)
-        self._data["mode_id"] = 0
 
     def write(self):
         res = requests.post(self.api_url, {})
