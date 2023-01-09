@@ -22,6 +22,7 @@ _LOGGER = logging.getLogger(__name__)
 
 import platform    # For getting the operating system name
 import subprocess  # For executing a shell command
+import requests
 
 def ping(host):
     """
@@ -75,9 +76,23 @@ class SmartEVSEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def validate_smartevse_connection(self, serial:Str ):
         host = "smartevse-" + serial + ".lan"
-        ok = ping(host)
-        if (not ok): #TODO disabled for debug purposes
-            raise CannotConnect("Ping cannot find %s." % (host))
+        self._serial = serial
+        #ok = ping(host)
+        #if (not ok): #TODO disabled for debug purposes
+        #    raise CannotConnect("Ping cannot find %s." % (host))
+        self.response = await self.hass.async_add_executor_job(self.get_data)
+        print("DEBUG: response=%s." % (self.response))
+
+    def get_data(self):
+        ip = "SmartEVSE-" + self._serial + ".local"
+        api_url = "http://" + ip + "/settings"
+        try:
+            ret = requests.get(api_url).json() #TODO error handling
+        except requests.exceptions.RequestException as e:
+            raise CannotConnect("Cannot connect to url:%s" % (api_url))
+            return None
+
+        return ret
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
