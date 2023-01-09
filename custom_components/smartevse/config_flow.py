@@ -54,25 +54,19 @@ class SmartEVSEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             errors["base"] = "cannot_connect"
         if not errors:
             self._serial = serial_number
-            #print("DEBUG: user_input[CONF_SERIAL]=%s,CONF_SERIAL=%s,user_input=%s." % (user_input[CONF_SERIAL], CONF_SERIAL, user_input))
             return await self.async_step_options()
 
     async def validate_smartevse_connection(self, serial:Str ):
-        host = "smartevse-" + serial + ".lan"
         self._serial = serial
         self.response = await self.hass.async_add_executor_job(self.get_data)
-        print("DEBUG: response=%s." % (self.response))
 
     def get_data(self):
         ip = "SmartEVSE-" + self._serial + ".local"
         api_url = "http://" + ip + "/settings"
         try:
-            ret = requests.get(api_url).json() #TODO error handling
+            requests.get(api_url).json() #TODO error handling
         except requests.exceptions.RequestException as e:
             raise CannotConnect("Cannot connect to url:%s" % (api_url))
-            return None
-
-        return ret
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
