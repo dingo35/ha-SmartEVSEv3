@@ -64,7 +64,7 @@ class SmartEVSEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         ip = "SmartEVSE-" + self._serial + ".local"
         api_url = "http://" + ip + "/settings"
         try:
-            requests.get(api_url).json() #TODO error handling
+            requests.get(api_url).json()
         except requests.exceptions.RequestException as e:
             raise CannotConnect("Cannot connect to url:%s" % (api_url))
 
