@@ -1,4 +1,7 @@
 # ha-SmartEVSEv3
+
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration)
+
 SmartEVSEv3 connection for Home Assistant
 
 ## Installation
@@ -7,7 +10,9 @@ SmartEVSEv3 connection for Home Assistant
 2. Restart Home Assistant.
 
 ## Alternative install using HACS
-< future plans >
+
+Hopefully soon:
+[HACS](https://hacs.xyz/) > Integrations > Plus > **SmartEVSE**
 
 ## Configuration
 After installation and restart your SmartEVSE device should be discovered.
