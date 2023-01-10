@@ -17,6 +17,7 @@ from .const import (
     CONF_SERIAL,
     DOMAIN,
     short,
+    UPDATE_INTERVAL,
 )
 from .models import SmartEVSEEntityDescription
 import requests
@@ -83,7 +84,7 @@ class SmartEVSE(DataUpdateCoordinator):
         self._urls: dict[str, Any] = {}
         self._status_keys: dict[str, Any] = {}
 
-        update_interval = timedelta(seconds=60)
+        update_interval = timedelta(seconds=UPDATE_INTERVAL)
 
         super().__init__(
             hass,

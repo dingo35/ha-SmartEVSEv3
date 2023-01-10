@@ -30,6 +30,8 @@ CONF_NAME = "name"
 CONF_SWITCHES = "switches"
 CONF_SENSORS = "sensors"
 
+UPDATE_INTERVAL = 60 #in seconds
+
 name = "name"
 url = "url"
 unit = "unit"
