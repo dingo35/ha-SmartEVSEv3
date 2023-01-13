@@ -21,7 +21,7 @@ If not:
 2. Go to Integrations
 3. At the bottom right, click Add Integration
 4. Search for "smartevse-3"
-5. Fill in your 5 digit serial number
+5. Fill in your 4 digit serial number (if the integration didn't find your SmartEVSE-v3 already!)
 6. Save
 
 ## Known issues
