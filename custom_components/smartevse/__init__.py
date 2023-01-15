@@ -15,6 +15,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 
 from .const import (
     CONF_SERIAL,
+    CONF_HOST,
     DOMAIN,
     short,
     UPDATE_INTERVAL,
@@ -79,6 +80,7 @@ class SmartEVSE(DataUpdateCoordinator):
         self._lock = asyncio.Lock()
         self.hass = hass
         self.serial = config[CONF_SERIAL]
+        self.host = config[CONF_HOST]
         self._config = config
 
         self._urls: dict[str, Any] = {}
@@ -137,8 +139,7 @@ class SmartEVSE(DataUpdateCoordinator):
         return self._data
 
     def get_data(self):
-        ip = "SmartEVSE-" + self.serial + ".local"
-        api_url = "http://" + ip + "/settings"
+        api_url = "http://" + self.host + "/settings"
         ret = requests.get(api_url).json() #TODO error handling
         return ret
 

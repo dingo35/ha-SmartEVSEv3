@@ -1,18 +1,26 @@
 {
-    "config": {
-        "abort": {
-            "already_configured": "Device is already configured"
-        },
-        "error": {
-            "cannot_connect": "Failed to connect"
-        },
-        "step": {
-            "user": {
-                "data": {
-                    "serial": "Serial number"
-                }
-            }
+  "config": {
+    "step": {
+      "user": {
+        "title": "Enter serial number",
+        "description": "Enter the serial number for your SmartEVSE as it is anounced by mDNS on your network (e.g. SmartEVSE-5123.local enter 5123)",
+        "data": {
+          "serial": "Serial Number"
         }
+      },
+      "user_ip": {
+        "title": "Enter IP Address",
+        "description": "Since we couldn't find your device through mDNS, enter the IP address or hostname (e.g. 10.0.0.76 or smartevse-12345.lan)",
+        "data": {
+          "host": "IP Address"
+        }
+      }
     },
-    "title": "SmartEVSE-3"
+    "error": {
+      "cannot_connect": "Failing to connect to HOST/settings. Try again."
+    },
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
+    }
+  }
 }

@@ -29,6 +29,7 @@ CONF_SERIAL = "serial"
 CONF_NAME = "name"
 CONF_SWITCHES = "switches"
 CONF_SENSORS = "sensors"
+CONF_HOST = "host"
 
 UPDATE_INTERVAL = 60 #in seconds
 

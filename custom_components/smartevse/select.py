@@ -66,8 +66,7 @@ class SmartEVSESelect(SmartEVSEEntity, SelectEntity):
         option_dict = self.entity_description.options
         if option_dict is not None:
             value = list(option_dict.keys())[list(option_dict.values()).index(option)]
-            ip = "SmartEVSE-" + self._client.serial + ".local"
-            self.api_url = "http://" + ip + "/settings?mode=" + str(value)
+            self.api_url = "http://" + self._client.host + "/settings?mode=" + str(value)
             await self.hass.async_add_executor_job(self.write)
 
     def write(self):
