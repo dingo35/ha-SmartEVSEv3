@@ -157,6 +157,13 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         state_class=SensorStateClass.TOTAL
     ),
     SmartEVSESensorEntityDescription(
+        key="smartevse_ev_total_kwh",
+        name="SmartEVSE EV Total kWh",
+        unit=ENERGY_KILO_WATT_HOUR,
+        device_class=SensorDeviceClass.ENERGY,
+        state_class=STATE_CLASS_TOTAL_INCREASING
+    ),
+    SmartEVSESensorEntityDescription(
         key="smartevse_mains_import_active_energy",
         name="SmartEVSE Mains Import Active Energy",
         unit=ENERGY_KILO_WATT_HOUR,
