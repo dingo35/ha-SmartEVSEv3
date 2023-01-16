@@ -129,6 +129,7 @@ class SmartEVSE(DataUpdateCoordinator):
         self._data["smartevse_solar_start_current"] = self.response['settings']['solar_start_current']
         self._data["smartevse_solar_stop_time"] = self.response['settings']['solar_stop_time']
         self._data["smartevse_ev_import_active_energy"] = self.response['ev_meter']['import_active_energy']
+        self._data["smartevse_ev_total_kwh"] = self.response['ev_meter']['total_kwh']
         self._data["smartevse_mains_import_active_energy"] = self.response['mains_meter']['import_active_energy']
         self._data["smartevse_mains_export_active_energy"] = self.response['mains_meter']['export_active_energy']
         self._data["smartevse_total"] = self.response['phase_currents']['TOTAL'] / 10
