@@ -1,4 +1,7 @@
 # ha-SmartEVSEv3
+
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration)
+
 SmartEVSEv3 connection for Home Assistant
 
 ## Installation
@@ -7,7 +10,9 @@ SmartEVSEv3 connection for Home Assistant
 2. Restart Home Assistant.
 
 ## Alternative install using HACS
-< future plans >
+
+Hopefully soon:
+[HACS](https://hacs.xyz/) > Integrations > Plus > **SmartEVSE**
 
 ## Configuration
 After installation and restart your SmartEVSE device should be discovered.
@@ -16,7 +21,7 @@ If not:
 2. Go to Integrations
 3. At the bottom right, click Add Integration
 4. Search for "smartevse-3"
-5. Fill in your 5 digit serial number
+5. Fill in your 4 digit serial number (if the integration didn't find your SmartEVSE-v3 already!)
 6. Save
 
 ## Known issues
@@ -26,5 +31,5 @@ If not:
 
 2. This will only work if your SmartEVSE device is 
 	- a version 3 device, 
-	- running version 1.5.1 or higher from the serkri firmware (https://github.com/serkri/SmartEVSE-3/releases), 
+	- running version 1.5.2 or higher from the serkri firmware (https://github.com/serkri/SmartEVSE-3/releases), 
    	The original firmware has no rest-API implemented, and does not announce itself on the mDNS network, so that will not work.
