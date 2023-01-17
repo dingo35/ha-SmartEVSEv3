@@ -7,7 +7,7 @@ SmartEVSEv3 connection for Home Assistant
 ## Installation
 
 1. Copy the folder ```custom_components/smartevse/``` to your homeassistant config directory.
-2. Restart Home Assistant.
+2. Restart Home Assistant, and, very important and often forgotten, RESTART YOUR BROWSER!
 
 ## Alternative install using HACS
 
