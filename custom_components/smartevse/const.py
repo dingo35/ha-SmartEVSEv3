@@ -213,3 +213,12 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         name="SmartEVSE Last Data Update",
     ),
 )
+
+SWITCHES: tuple[SmartEVSESwitchEntityDescription, ...] = (
+    SmartEVSESwitchEntityDescription(
+        key="smartevse_mode_switch",
+        name="SmartEVSE Power",
+        icon="mdi:power",
+        entity_registry_enabled_default=False,
+    ),
+)
