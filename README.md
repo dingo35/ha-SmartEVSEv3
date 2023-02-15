@@ -8,9 +8,10 @@ SmartEVSEv3 connection for Home Assistant
 
 1. Install [HACS](https://hacs.xyz/docs/setup/download) if you have that not already running; you'd want it 
 		installed anyways to have access to all those wonderful custom_components....
-2. From the main menu, select Hacs, select Integrations; enter "smartevse" in the search box, follow instructions to download.
+2. From the main menu, select HACS, select Integrations; enter "smartevse" in the search box, follow instructions to download.
 3. After successful download, from the main menu, select Settings, select Devices & Services (or wherever "Integrations" are mentioned).
 4. Select "add integration", enter "smartevse", and from then on follow instructions.
+5. Restart Home Assistant, and, very important and often forgotten, RESTART YOUR BROWSER!
 
 The main advantage of this installation method is that HomeAssistant will inform you of updates.
 
