@@ -8,17 +8,20 @@ SmartEVSEv3 connection for Home Assistant
 
 1. Install [HACS](https://hacs.xyz/docs/setup/download) if you have that not already running; you'd want it 
 		installed anyways to have access to all those wonderful custom_components....
-2. From the main menu, select HACS, select Integrations; enter "smartevse" in the search box, follow instructions to download.
-3. After successful download, from the main menu, select Settings, select Devices & Services (or wherever "Integrations" are mentioned).
-4. Select "add integration", enter "smartevse", and from then on follow instructions.
-5. Restart Home Assistant, and, very important and often forgotten, RESTART YOUR BROWSER!
+2. From the main menu, select HACS, select Integrations, select Explore & Download repositories; enter "smartevse" in the search box, follow instructions to download.
+3. Restart Home Assistant, and, very important and often forgotten, RESTART YOUR BROWSER! Really close your browser window and reopen it. F5 is not enough!
+4. After restart, from the main menu, select Settings, select Devices & Services (or wherever "Integrations" are mentioned); you will probably see your SmartEVSE installed.
+
+If not (because you don't have mDNS configured on your HomeAssistant Server, you have your SmartEVSE on a different vlan/network segment than your HomeAssistant Server, or other network mis/nonstandard configurations):
+5. Select "add integration", enter "smartevse", and from then on follow instructions.
+6. Restart Home Assistant, and, very important and often forgotten, RESTART YOUR BROWSER!
 
 The main advantage of this installation method is that HomeAssistant will inform you of updates.
 
 ## Alternative install
 
 1. Copy the folder ```custom_components/smartevse/``` to your homeassistant config directory.
-2. Restart Home Assistant, and, very important and often forgotten, RESTART YOUR BROWSER!
+2. From here on follow goto 3. of the above HACS Installation method.
 
 ## Configuration
 After installation and restart your SmartEVSE device should be discovered.
@@ -31,7 +34,7 @@ If not:
 6. Save
 
 ## Known issues
-1. Your SmartEVSE device needs to be pingable by mDNS:
+1. For automatic discovery, your SmartEVSE device needs to be pingable by mDNS:
 		ping SmartEVSE-xxxx.local where xxxx is the serial number of your device.
 
 2. This will only work if your SmartEVSE device is 
