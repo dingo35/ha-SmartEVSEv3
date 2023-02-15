@@ -219,6 +219,6 @@ SWITCHES: tuple[SmartEVSESwitchEntityDescription, ...] = (
         key="smartevse_mode_switch",
         name="SmartEVSE Power",
         icon="mdi:power",
-        entity_registry_enabled_default=False,
+        entity_registry_enabled_default=True,
     ),
 )
