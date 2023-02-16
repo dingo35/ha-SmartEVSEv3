@@ -13,6 +13,7 @@ SmartEVSEv3 connection for Home Assistant
 4. After restart, from the main menu, select Settings, select Devices & Services (or wherever "Integrations" are mentioned); you will probably see your SmartEVSE installed.
 
 If not (because you don't have mDNS configured on your HomeAssistant Server, you have your SmartEVSE on a different vlan/network segment than your HomeAssistant Server, or other network mis/nonstandard configurations):
+
 5. Select "add integration", enter "smartevse", and from then on follow instructions.
 6. Restart Home Assistant, and, very important and often forgotten, RESTART YOUR BROWSER!
 
