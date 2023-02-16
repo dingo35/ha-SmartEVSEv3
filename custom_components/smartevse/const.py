@@ -58,6 +58,10 @@ SELECTS: tuple[SmartEVSESelectEntityDescription, ...] = (
 
 SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
     SmartEVSESensorEntityDescription(
+        key="smartevse_fw_version",
+        name="SmartEVSE Firmware version",
+    ),
+    SmartEVSESensorEntityDescription(
         key="smartevse_mode",
         name="SmartEVSE Mode",
     ),
@@ -68,6 +72,22 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
     SmartEVSESensorEntityDescription(
         key="smartevse_car_connected",
         name="SmartEVSE Car Connected",
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_wifi_status",
+        name="SmartEVSE Wifi Status",
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_wifi_ssid",
+        name="SmartEVSE Wifi SSID",
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_wifi_rssi",
+        name="SmartEVSE Wifi RSSI",
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_wifi_bssid",
+        name="SmartEVSE Wifi BSSID",
     ),
     SmartEVSESensorEntityDescription(
         key="smartevse_temp",
@@ -150,6 +170,20 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         name="SmartEVSE Solar Stop Time",
     ),
     SmartEVSESensorEntityDescription(
+        key="smartevse_enable_C2",
+        name="SmartEVSE Enable Contactor2",
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_home_battery_current",
+        name="SmartEVSE Home Battery Current",
+        unit=ELECTRIC_CURRENT_AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_home_battery_last_update",
+        name="SmartEVSE Home Battery Last Update",
+    ),
+    SmartEVSESensorEntityDescription(
         key="smartevse_ev_import_active_energy",
         name="SmartEVSE EV Import Active Energy",
         unit=ENERGY_KILO_WATT_HOUR,
@@ -207,6 +241,18 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         name="SmartEVSE Mains L3",
         unit=ELECTRIC_CURRENT_AMPERE,
         device_class=SensorDeviceClass.CURRENT,
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_charging_l1",
+        name="SmartEVSE Charging L1",
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_charging_l2",
+        name="SmartEVSE Charging L2",
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_charging_l3",
+        name="SmartEVSE Charging L3",
     ),
     SmartEVSESensorEntityDescription(
         key="smartevse_last_data_update",
