@@ -109,36 +109,54 @@ class SmartEVSE(DataUpdateCoordinator):
     async def _async_update_data(self) -> dict[str, Any]:
         """Update data via library."""
         self.response = await self.hass.async_add_executor_job(self.get_data)
-        self._data["smartevse_fw_version"] = self.response['version']
-        self._data["smartevse_mode"] = self.response['mode']
-        self._data["smartevse_mode_id"] = self.response['mode_id']
-        self._data["smartevse_car_connected"] = self.response['car_connected']
-        self._data["smartevse_wifi_status"] = self.response['wifi']['status']
-        self._data["smartevse_wifi_ssid"] = self.response['wifi']['ssid']
-        self._data["smartevse_wifi_rssi"] = self.response['wifi']['rssi']
-        self._data["smartevse_wifi_bssid"] = self.response['wifi']['bssid']
-        self._data["smartevse_temp"] = self.response['evse']['temp']
-        self._data["smartevse_access"] = self.response['evse']['access']
-        self._data["smartevse_mode2"] = self.response['evse']['mode']
-        self._data["smartevse_solar_stop_timer"] = self.response['evse']['solar_stop_timer']
-        self._data["smartevse_state"] = self.response['evse']['state']
-        self._data["smartevse_state_id"] = self.response['evse']['state_id']
-        self._data["smartevse_error"] = self.response['evse']['error']
-        self._data["smartevse_error_id"] = self.response['evse']['error_id']
-        self._data["smartevse_charge_current"] = self.response['settings']['charge_current'] / 10
-        self._data["smartevse_override_current"] = self.response['settings']['override_current']
-        self._data["smartevse_current_min"] = self.response['settings']['current_min']
-        self._data["smartevse_current_max"] = self.response['settings']['current_max']
-        self._data["smartevse_current_main"] = self.response['settings']['current_main']
-        self._data["smartevse_solar_max_import"] = self.response['settings']['solar_max_import']
-        self._data["smartevse_solar_start_current"] = self.response['settings']['solar_start_current']
-        self._data["smartevse_solar_stop_time"] = self.response['settings']['solar_stop_time']
-        self._data["smartevse_enable_C2"] = self.response['settings']['enable_C2']
-        self._data["smartevse_home_battery_current"] = self.response['home_battery']['current'] / 10
-        self._data["smartevse_home_battery_last_update"] = self.response['home_battery']['last_update']
-        self._data["smartevse_ev_import_active_energy"] = self.response['ev_meter']['import_active_energy']
-        self._data["smartevse_ev_total_kwh"] = self.response['ev_meter']['total_kwh']
-        self._data["smartevse_ev_charged_kwh"] = self.response['ev_meter']['charged_kwh']
+        try:
+            self._data["smartevse_fw_version"] = self.response['version']
+            self._data["smartevse_mode"] = self.response['mode']
+            self._data["smartevse_mode_id"] = self.response['mode_id']
+            self._data["smartevse_car_connected"] = self.response['car_connected']
+        except KeyError:
+            pass
+        try:
+            self._data["smartevse_wifi_status"] = self.response['wifi']['status']
+            self._data["smartevse_wifi_ssid"] = self.response['wifi']['ssid']
+            self._data["smartevse_wifi_rssi"] = self.response['wifi']['rssi']
+            self._data["smartevse_wifi_bssid"] = self.response['wifi']['bssid']
+        except KeyError:
+            pass
+        try:
+            self._data["smartevse_temp"] = self.response['evse']['temp']
+            self._data["smartevse_access"] = self.response['evse']['access']
+            self._data["smartevse_mode2"] = self.response['evse']['mode']
+            self._data["smartevse_solar_stop_timer"] = self.response['evse']['solar_stop_timer']
+            self._data["smartevse_state"] = self.response['evse']['state']
+            self._data["smartevse_state_id"] = self.response['evse']['state_id']
+            self._data["smartevse_error"] = self.response['evse']['error']
+            self._data["smartevse_error_id"] = self.response['evse']['error_id']
+        except KeyError:
+            pass
+        try:
+            self._data["smartevse_charge_current"] = self.response['settings']['charge_current'] / 10
+            self._data["smartevse_override_current"] = self.response['settings']['override_current']
+            self._data["smartevse_current_min"] = self.response['settings']['current_min']
+            self._data["smartevse_current_max"] = self.response['settings']['current_max']
+            self._data["smartevse_current_main"] = self.response['settings']['current_main']
+            self._data["smartevse_solar_max_import"] = self.response['settings']['solar_max_import']
+            self._data["smartevse_solar_start_current"] = self.response['settings']['solar_start_current']
+            self._data["smartevse_solar_stop_time"] = self.response['settings']['solar_stop_time']
+            self._data["smartevse_enable_C2"] = self.response['settings']['enable_C2']
+        except KeyError:
+            pass
+        try:
+            self._data["smartevse_home_battery_current"] = self.response['home_battery']['current'] / 10
+            self._data["smartevse_home_battery_last_update"] = self.response['home_battery']['last_update']
+        except KeyError:
+            pass
+        try:
+            self._data["smartevse_ev_import_active_energy"] = self.response['ev_meter']['import_active_energy']
+            self._data["smartevse_ev_total_kwh"] = self.response['ev_meter']['total_kwh']
+            self._data["smartevse_ev_charged_kwh"] = self.response['ev_meter']['charged_kwh']
+        except KeyError:
+            pass
         try:
             self._data["smartevse_ev_total"] = self.response['ev_meter']['currents']['TOTAL'] / 10
             self._data["smartevse_ev_l1"] = self.response['ev_meter']['currents']['L1'] / 10
@@ -146,16 +164,22 @@ class SmartEVSE(DataUpdateCoordinator):
             self._data["smartevse_ev_l3"] = self.response['ev_meter']['currents']['L3'] / 10
         except KeyError:
             pass
-        self._data["smartevse_mains_import_active_energy"] = self.response['mains_meter']['import_active_energy']
-        self._data["smartevse_mains_export_active_energy"] = self.response['mains_meter']['export_active_energy']
-        self._data["smartevse_total"] = self.response['phase_currents']['TOTAL'] / 10
-        self._data["smartevse_l1"] = self.response['phase_currents']['L1'] / 10
-        self._data["smartevse_l2"] = self.response['phase_currents']['L2'] / 10
-        self._data["smartevse_l3"] = self.response['phase_currents']['L3'] / 10
-        self._data["smartevse_charging_l1"] = self.response['phase_currents']['charging_L1']
-        self._data["smartevse_charging_l2"] = self.response['phase_currents']['charging_L2']
-        self._data["smartevse_charging_l3"] = self.response['phase_currents']['charging_L3']
-        self._data["smartevse_last_data_update"] = datetime.datetime.fromtimestamp(self.response['phase_currents']['last_data_update'])
+        try:
+            self._data["smartevse_mains_import_active_energy"] = self.response['mains_meter']['import_active_energy']
+            self._data["smartevse_mains_export_active_energy"] = self.response['mains_meter']['export_active_energy']
+        except KeyError:
+            pass
+        try:
+            self._data["smartevse_total"] = self.response['phase_currents']['TOTAL'] / 10
+            self._data["smartevse_l1"] = self.response['phase_currents']['L1'] / 10
+            self._data["smartevse_l2"] = self.response['phase_currents']['L2'] / 10
+            self._data["smartevse_l3"] = self.response['phase_currents']['L3'] / 10
+            self._data["smartevse_charging_l1"] = self.response['phase_currents']['charging_L1']
+            self._data["smartevse_charging_l2"] = self.response['phase_currents']['charging_L2']
+            self._data["smartevse_charging_l3"] = self.response['phase_currents']['charging_L3']
+            self._data["smartevse_last_data_update"] = datetime.datetime.fromtimestamp(self.response['phase_currents']['last_data_update'])
+        except KeyError:
+            pass
         return self._data
 
     def get_data(self):
