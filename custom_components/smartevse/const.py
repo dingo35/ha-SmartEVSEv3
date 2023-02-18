@@ -205,6 +205,30 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         state_class=SensorStateClass.TOTAL
     ),
     SmartEVSESensorEntityDescription(
+        key="smartevse_ev_total",
+        name="SmartEVSE EV Total",
+        unit=ELECTRIC_CURRENT_AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_ev_l1",
+        name="SmartEVSE EV L1",
+        unit=ELECTRIC_CURRENT_AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_ev_l2",
+        name="SmartEVSE EV L2",
+        unit=ELECTRIC_CURRENT_AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_ev_l3",
+        name="SmartEVSE EV L3",
+        unit=ELECTRIC_CURRENT_AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+    ),
+    SmartEVSESensorEntityDescription(
         key="smartevse_mains_import_active_energy",
         name="SmartEVSE Mains Import Active Energy",
         unit=ENERGY_KILO_WATT_HOUR,
