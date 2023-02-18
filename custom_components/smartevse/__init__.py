@@ -139,10 +139,13 @@ class SmartEVSE(DataUpdateCoordinator):
         self._data["smartevse_ev_import_active_energy"] = self.response['ev_meter']['import_active_energy']
         self._data["smartevse_ev_total_kwh"] = self.response['ev_meter']['total_kwh']
         self._data["smartevse_ev_charged_kwh"] = self.response['ev_meter']['charged_kwh']
-        self._data["smartevse_ev_total"] = self.response['ev_meter']['currents']['TOTAL'] / 10
-        self._data["smartevse_ev_l1"] = self.response['ev_meter']['currents']['L1'] / 10
-        self._data["smartevse_ev_l2"] = self.response['ev_meter']['currents']['L2'] / 10
-        self._data["smartevse_ev_l3"] = self.response['ev_meter']['currents']['L3'] / 10
+        try:
+            self._data["smartevse_ev_total"] = self.response['ev_meter']['currents']['TOTAL'] / 10
+            self._data["smartevse_ev_l1"] = self.response['ev_meter']['currents']['L1'] / 10
+            self._data["smartevse_ev_l2"] = self.response['ev_meter']['currents']['L2'] / 10
+            self._data["smartevse_ev_l3"] = self.response['ev_meter']['currents']['L3'] / 10
+        except KeyError:
+            pass
         self._data["smartevse_mains_import_active_energy"] = self.response['mains_meter']['import_active_energy']
         self._data["smartevse_mains_export_active_energy"] = self.response['mains_meter']['export_active_energy']
         self._data["smartevse_total"] = self.response['phase_currents']['TOTAL'] / 10
