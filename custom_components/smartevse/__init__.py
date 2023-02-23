@@ -152,7 +152,21 @@ class SmartEVSE(DataUpdateCoordinator):
         except KeyError:
             pass
         try:
-            self._data["smartevse_ev_import_active_energy"] = self.response['ev_meter']['import_active_energy']
+            #we give these keys a special treatment since there was a power/energy mixup in the past:
+            self._data["smartevse_ev_import_active_power"] = self.response['ev_meter']['import_active_power']
+        except KeyError:
+            pass
+        try:
+            #we give these keys a special treatment since there was a power/energy mixup in the past:
+            self._data["smartevse_ev_import_active_enery"] = self.response['ev_meter']['import_active_energy']
+        except KeyError:
+            pass
+        try:
+            #we give these keys a special treatment since there was a power/energy mixup in the past:
+            self._data["smartevse_ev_export_active_enery"] = self.response['ev_meter']['export_active_energy']
+        except KeyError:
+            pass
+        try:
             self._data["smartevse_ev_total_kwh"] = self.response['ev_meter']['total_kwh']
             self._data["smartevse_ev_charged_kwh"] = self.response['ev_meter']['charged_kwh']
         except KeyError:

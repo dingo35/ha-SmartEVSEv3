@@ -1,6 +1,6 @@
 """Constants for the smartevse component."""
 from __future__ import annotations
-from homeassistant.const import TEMP_CELSIUS, ELECTRIC_CURRENT_AMPERE, ENERGY_KILO_WATT_HOUR
+from homeassistant.const import TEMP_CELSIUS, ELECTRIC_CURRENT_AMPERE, ENERGY_KILO_WATT_HOUR, POWER_KILO_WATT
 
 from homeassistant.components.sensor import (
     STATE_CLASS_MEASUREMENT,
@@ -189,6 +189,19 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         unit=ENERGY_KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_ev_export_active_energy",
+        name="SmartEVSE EV Export Active Energy",
+        unit=ENERGY_KILO_WATT_HOUR,
+        device_class=SensorDeviceClass.ENERGY,
+        state_class=SensorStateClass.TOTAL
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_ev_import_active_power",
+        name="SmartEVSE EV Import Active Power",
+        unit=POWER_KILO_WATT,
+        device_class=SensorDeviceClass.POWER,
     ),
     SmartEVSESensorEntityDescription(
         key="smartevse_ev_total_kwh",
