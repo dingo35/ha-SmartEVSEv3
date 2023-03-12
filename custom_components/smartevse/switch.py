@@ -40,7 +40,7 @@ class SmartEVSESwitch(SmartEVSEEntity, SwitchEntity):
     def __init__(
         self,
         entity_description: SmartEVSESwitchEntityDescription,
-        client: SmartEVSEEasy,
+        client: SmartEVSE,
         data: MappingProxyType[str, Any],
         on_value: str = "on",
         off_value: str = "off",
