@@ -27,7 +27,7 @@ import datetime
 _LOGGER = logging.getLogger(__name__)
 
 
-DOMAINS = ["sensor", "select", "switch"]
+DOMAINS = ["sensor", "select", "switch", "number"]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

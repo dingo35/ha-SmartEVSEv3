@@ -305,3 +305,20 @@ SWITCHES: tuple[SmartEVSESwitchEntityDescription, ...] = (
         entity_registry_enabled_default=True,
     ),
 )
+
+# TODO units should be in 10ths of Ampere
+# native_min_value should be limited to MinCurrent
+# native_max_value should be limited to MaxCurrent
+
+NUMBERS: tuple[SmartEVSENumberEntityDescription, ...] = (
+    SmartEVSENumberEntityDescription(
+        key="smartevse_override_current",
+        name="Override Current (Normal Mode)",
+        unit=ELECTRIC_CURRENT_AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+        native_min_value=6,
+        native_max_value=16,
+        native_step=0.1,
+        entity_registry_enabled_default=True,
+    ),
+)
