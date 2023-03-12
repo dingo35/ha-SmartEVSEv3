@@ -1,6 +1,6 @@
 """Constants for the smartevse component."""
 from __future__ import annotations
-from homeassistant.const import TEMP_CELSIUS, ELECTRIC_CURRENT_AMPERE, ENERGY_KILO_WATT_HOUR, POWER_KILO_WATT
+from homeassistant.const import TEMP_CELSIUS, ELECTRIC_CURRENT_AMPERE, ENERGY_KILO_WATT_HOUR, POWER_KILO_WATT, TIME_MINUTES
 
 from homeassistant.components.sensor import (
     STATE_CLASS_MEASUREMENT,
@@ -319,6 +319,16 @@ NUMBERS: tuple[SmartEVSENumberEntityDescription, ...] = (
         native_min_value=6,
         native_max_value=16,
         native_step=0.1,
+        entity_registry_enabled_default=True,
+    ),
+    SmartEVSENumberEntityDescription(
+        key="smartevse_solar_stop_time",
+        name="Solar Stop Time",
+        unit=TIME_MINUTES,
+        #device_class=SensorDeviceClass.TIME,
+        native_min_value=0,
+        native_max_value=60,
+        native_step=1,
         entity_registry_enabled_default=True,
     ),
 )

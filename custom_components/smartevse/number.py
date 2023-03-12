@@ -57,7 +57,9 @@ class SmartEVSENumber(SmartEVSEEntity, NumberEntity):
         """Return the entity value to represent the entity state."""
         #prevent error message at startup
         if (not self.coordinator.data == None):
-            value = self.coordinator.data.get(self.entity_description.key) / 10
+            value = self.coordinator.data.get(self.entity_description.key)
+            if (self.entity_description.key == "smartevse_override_current"):
+                value = value / 10
             #self.coordinator._data["smartevse_override_current"] = value
 
         else:
@@ -68,7 +70,10 @@ class SmartEVSENumber(SmartEVSEEntity, NumberEntity):
     async def async_set_native_value(self, value: float) -> None:
         """Update the current value."""
         """self._client.smart.put_value(self.get_endpoint(), value)"""
-        self.api_url = "http://" + self._client.host + "/settings?override_current=" + str(value * 10)
+        if (self.entity_description.key == "smartevse_solar_stop_time"):
+            self.api_url = "http://" + self._client.host + "/settings?stop_timer=" + str(value)
+        elif (self.entity_description.key == "smartevse_override_current"):
+            self.api_url = "http://" + self._client.host + "/settings?override_current=" + str(value * 10)
         await self.hass.async_add_executor_job(self.write)
 
     def write(self):
