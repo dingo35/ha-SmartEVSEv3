@@ -136,7 +136,7 @@ class SmartEVSE(DataUpdateCoordinator):
             pass
         try:
             self._data["smartevse_charge_current"] = self.response['settings']['charge_current'] / 10
-            self._data["smartevse_override_current"] = self.response['settings']['override_current']
+            self._data["smartevse_override_current"] = self.response['settings']['override_current'] / 10
             self._data["smartevse_current_min"] = self.response['settings']['current_min']
             self._data["smartevse_current_max"] = self.response['settings']['current_max']
             self._data["smartevse_current_main"] = self.response['settings']['current_main']
