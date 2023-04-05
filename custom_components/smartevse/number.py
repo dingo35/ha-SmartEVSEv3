@@ -59,7 +59,7 @@ class SmartEVSENumber(SmartEVSEEntity, NumberEntity):
         if (not self.coordinator.data == None):
             value = self.coordinator.data.get(self.entity_description.key)
             if (self.entity_description.key == "smartevse_override_current"):
-                value = value / 10
+                value = value
             #self.coordinator._data["smartevse_override_current"] = value
 
         else:

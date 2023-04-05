@@ -130,12 +130,6 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.CURRENT,
     ),
     SmartEVSESensorEntityDescription(
-        key="smartevse_override_current",
-        name="SmartEVSE Override Current",
-        unit=ELECTRIC_CURRENT_AMPERE,
-        device_class=SensorDeviceClass.CURRENT,
-    ),
-    SmartEVSESensorEntityDescription(
         key="smartevse_current_min",
         name="SmartEVSE Current Min",
         unit=ELECTRIC_CURRENT_AMPERE,
@@ -313,7 +307,7 @@ SWITCHES: tuple[SmartEVSESwitchEntityDescription, ...] = (
 NUMBERS: tuple[SmartEVSENumberEntityDescription, ...] = (
     SmartEVSENumberEntityDescription(
         key="smartevse_override_current",
-        name="Override Current (Normal Mode)",
+        name="SmartEVSE Override Current",
         unit=ELECTRIC_CURRENT_AMPERE,
         device_class=SensorDeviceClass.CURRENT,
         native_min_value=6,
