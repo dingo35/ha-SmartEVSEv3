@@ -39,6 +39,7 @@ class SmartEVSEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     ) -> FlowResult:
         """Handle zeroconf discovery."""
         errors: dict[str, str] = {}
+
         if not discovery_info.hostname.startswith("SmartEVSE"):
             return self.async_abort(reason="invalid_mdns")
 
@@ -48,18 +49,14 @@ class SmartEVSEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         await self.async_set_unique_id(self._serial)
         self._abort_if_unique_id_configured()
 
-        for suffix in [".local", ".lan", ""]:
-            self._host = "SmartEVSE-" + self._serial + suffix
-            # Attempt to make a connection to the local device and abort if not possible
-            err = False
-            try:
-                await self.validate_smartevse_connection()
-            except CannotConnect:
-                err = True
-            if not err:
-                return await self.async_step_options()
-
-        return self.async_abort(reason="Could not connect to device:%s" % (self._host))
+        self._host = "SmartEVSE-" + self._serial + ".local"
+        # Attempt to make a connection to the local device and abort if not possible
+        try:
+            await self.validate_smartevse_connection()
+        except CannotConnect:
+            errors["base"] = "cannot_connect"
+        if not errors:
+            return await self.async_step_options()
 
     async def validate_smartevse_connection(self):
         self.response = await self.hass.async_add_executor_job(self.get_data)
@@ -141,6 +138,7 @@ class SmartEVSEConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             CONF_NAME: "SmartEVSE",
             CONF_HOST: self._host,
         }
+
         return self.async_create_entry(title=f"{self._serial}", data=data)
 
 
