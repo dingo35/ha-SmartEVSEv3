@@ -144,6 +144,7 @@ class SmartEVSE(DataUpdateCoordinator):
             self._data["smartevse_solar_start_current"] = self.response['settings']['solar_start_current']
             self._data["smartevse_solar_stop_time"] = self.response['settings']['solar_stop_time']
             self._data["smartevse_enable_C2"] = self.response['settings']['enable_C2']
+            self._data["smartevse_mains_meter"] = self.response['settings']['mains_meter']
         except KeyError:
             pass
         try:

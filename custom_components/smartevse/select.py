@@ -56,6 +56,14 @@ class SmartEVSESelect(SmartEVSEEntity, SelectEntity):
         """Return the state of the entity."""
         if self.coordinator.data == None:
             return None
+
+        """if no MainsMeter is defined, Smart and Solar modes are forbidden"""
+        """TODO there must be a smarter place to do this, but I haven't found it yet:"""
+        if self.coordinator.data['smartevse_mains_meter'] == "Disabled":
+            if "SMART" in self._attr_options:
+                self._attr_options.remove("SMART")
+            if "SOLAR" in self._attr_options:
+                self._attr_options.remove("SOLAR")
         option = self.coordinator.data.get(self.entity_description.key)
         if option is not None and self.entity_description.options is not None:
             return str(self.entity_description.options[option])

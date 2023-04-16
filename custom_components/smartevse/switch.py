@@ -57,7 +57,11 @@ class SmartEVSESwitch(SmartEVSEEntity, SwitchEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the entity on."""
-        self.api_url = "http://" + self._client.host + "/settings?mode=3"
+        """if no MainsMeter is defined, Smart and Solar modes are forbidden"""
+        if self.coordinator.data['smartevse_mains_meter'] == "Disabled":
+            self.api_url = "http://" + self._client.host + "/settings?mode=1"
+        else:
+            self.api_url = "http://" + self._client.host + "/settings?mode=3"
         await self.hass.async_add_executor_job(self.write)
 
     async def async_turn_off(self, **kwargs: Any) -> None:

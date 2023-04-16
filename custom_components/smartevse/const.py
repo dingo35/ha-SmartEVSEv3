@@ -286,6 +286,10 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         name="SmartEVSE Charging L3",
     ),
     SmartEVSESensorEntityDescription(
+        key="smartevse_mains_meter",
+        name="SmartEVSE Mains Meter",
+    ),
+    SmartEVSESensorEntityDescription(
         key="smartevse_last_data_update",
         name="SmartEVSE Last Data Update",
     ),
