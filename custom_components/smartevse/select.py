@@ -59,7 +59,8 @@ class SmartEVSESelect(SmartEVSEEntity, SelectEntity):
 
         """if no MainsMeter is defined, Smart and Solar modes are forbidden"""
         """TODO there must be a smarter place to do this, but I haven't found it yet:"""
-        if self.coordinator.data['smartevse_mains_meter'] == "Disabled":
+        if (self.entity_description.key == "smartevse_mode_id"):
+          if self.coordinator.data['smartevse_mains_meter'] == "Disabled":
             if "SMART" in self._attr_options:
                 self._attr_options.remove("SMART")
             if "SOLAR" in self._attr_options:
@@ -74,7 +75,14 @@ class SmartEVSESelect(SmartEVSEEntity, SelectEntity):
         option_dict = self.entity_description.options
         if option_dict is not None:
             value = list(option_dict.keys())[list(option_dict.values()).index(option)]
-            self.api_url = "http://" + self._client.host + "/settings?mode=" + str(value)
+            if (self.entity_description.key == "smartevse_mode_id"):
+                self.api_url = "http://" + self._client.host + "/settings?mode=" + str(value)
+            if (self.entity_description.key == "smartevse_enable_C2"):
+                optionlist = [ "Not present", "Always Off", "Solar Off", "Always On", "Auto" ]
+                if value in optionlist:
+                    self.api_url = "http://" + self._client.host + "/settings?enable_C2=" + str(optionlist.index(value))
+                else:
+                    return None
             await self.hass.async_add_executor_job(self.write)
 
     def write(self):

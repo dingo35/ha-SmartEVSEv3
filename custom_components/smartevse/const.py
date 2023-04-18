@@ -54,6 +54,18 @@ SELECTS: tuple[SmartEVSESelectEntityDescription, ...] = (
         },
         entity_registry_enabled_default=True,
     ),
+    SmartEVSESelectEntityDescription(
+        key="smartevse_enable_C2",
+        name="SmartEVSE C2 selector",
+        options={
+            "Not present": "Not present",
+            "Always Off": "Always Off",
+            "Solar Off": "Solar Off",
+            "Always On": "Always On",
+            "Auto": "Auto",
+        },
+        entity_registry_enabled_default=True,
+    ),
 )
 
 SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
@@ -165,7 +177,7 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
     ),
     SmartEVSESensorEntityDescription(
         key="smartevse_enable_C2",
-        name="SmartEVSE Enable Contactor2",
+        name="SmartEVSE C2 sensor",
     ),
     SmartEVSESensorEntityDescription(
         key="smartevse_home_battery_current",
