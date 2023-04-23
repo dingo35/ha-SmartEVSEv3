@@ -195,6 +195,10 @@ class SmartEVSE(DataUpdateCoordinator):
             self._data["smartevse_last_data_update"] = datetime.datetime.fromtimestamp(self.response['phase_currents']['last_data_update'])
         except KeyError:
             pass
+        try:
+            self._data["smartevse_starttime"] = datetime.datetime.fromtimestamp(self.response['settings']['starttime'])
+        except KeyError:
+            pass
         return self._data
 
     def get_data(self):

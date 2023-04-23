@@ -301,6 +301,10 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         key="smartevse_last_data_update",
         name="SmartEVSE Last Data Update",
     ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_starttime",
+        name="SmartEVSE StartTime",
+    ),
 )
 
 SWITCHES: tuple[SmartEVSESwitchEntityDescription, ...] = (
