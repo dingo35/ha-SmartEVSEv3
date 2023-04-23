@@ -176,10 +176,6 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         name="SmartEVSE Solar Stop Time",
     ),
     SmartEVSESensorEntityDescription(
-        key="smartevse_enable_C2",
-        name="SmartEVSE C2 sensor",
-    ),
-    SmartEVSESensorEntityDescription(
         key="smartevse_home_battery_current",
         name="SmartEVSE Home Battery Current",
         unit=ELECTRIC_CURRENT_AMPERE,
