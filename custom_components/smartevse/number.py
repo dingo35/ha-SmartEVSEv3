@@ -58,6 +58,7 @@ class SmartEVSENumber(SmartEVSEEntity, NumberEntity):
         #prevent error message at startup
         if (not self.coordinator.data == None):
             value = self.coordinator.data.get(self.entity_description.key)
+            #TODO can this be deleted?:
             if (self.entity_description.key == "smartevse_override_current"):
                 value = value
             #self.coordinator._data["smartevse_override_current"] = value
@@ -74,6 +75,10 @@ class SmartEVSENumber(SmartEVSEEntity, NumberEntity):
             self.api_url = "http://" + self._client.host + "/settings?stop_timer=" + str(value)
         elif (self.entity_description.key == "smartevse_override_current"):
             self.api_url = "http://" + self._client.host + "/settings?override_current=" + str(value * 10)
+        elif (self.entity_description.key == "smartevse_solar_start_current"):
+            self.api_url = "http://" + self._client.host + "/settings?solar_start_current=" + str(value)
+        elif (self.entity_description.key == "smartevse_solar_max_import"):
+            self.api_url = "http://" + self._client.host + "/settings?solar_max_import=" + str(value)
         await self.hass.async_add_executor_job(self.write)
 
     def write(self):
