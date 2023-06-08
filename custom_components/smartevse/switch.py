@@ -71,5 +71,5 @@ class SmartEVSESwitch(SmartEVSEEntity, SwitchEntity):
 
     def write(self):
         res = requests.post(self.api_url, {})
-        if (res == "<Response [200]>"):
+        if res.status_code == 200:
             self.async_write_ha_state()

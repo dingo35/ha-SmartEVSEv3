@@ -83,10 +83,10 @@ class SmartEVSESelect(SmartEVSEEntity, SelectEntity):
                     self.api_url = "http://" + self._client.host + "/settings?enable_C2=" + str(optionlist.index(value))
                 else:
                     return None
-            await self.hass.async_add_executor_job(self.write)
+            await self.hass.async_add_executor_job(self.write, option)
 
-    def write(self):
+    def write(self, option):
         res = requests.post(self.api_url, {})
-        if (res == "<Response [200]>"):
+        if res.status_code == 200:
             self._attr_current_option = option
             self.async_write_ha_state()
