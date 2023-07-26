@@ -1,6 +1,6 @@
 """Constants for the smartevse component."""
 from __future__ import annotations
-from homeassistant.const import TEMP_CELSIUS, ELECTRIC_CURRENT_AMPERE, ENERGY_KILO_WATT_HOUR, POWER_KILO_WATT, TIME_MINUTES
+from homeassistant.const import TEMP_CELSIUS, ELECTRIC_CURRENT_AMPERE, ENERGY_KILO_WATT_HOUR, POWER_KILO_WATT, TIME_MINUTES, SIGNAL_STRENGTH_DECIBELS_MILLIWATT
 
 from homeassistant.components.sensor import (
     STATE_CLASS_MEASUREMENT,
@@ -96,6 +96,9 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
     SmartEVSESensorEntityDescription(
         key="smartevse_wifi_rssi",
         name="SmartEVSE Wifi RSSI",
+        unit=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
+        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
+        state_class=SensorStateClass.MEASUREMENT,
     ),
     SmartEVSESensorEntityDescription(
         key="smartevse_wifi_bssid",
