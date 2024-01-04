@@ -1,13 +1,11 @@
 """Constants for the smartevse component."""
 from __future__ import annotations
 from homeassistant.const import (
-    UnitOfTemperature, 
     UnitOfElectricCurrent, 
     UnitOfEnergy, 
     UnitOfPower, 
-    UnitOfTime, 
-    UnitOfPressure,
     UnitOfTemperature,
+    UnitOfTime,
     SIGNAL_STRENGTH_DECIBELS_MILLIWATT
 )
 from homeassistant.components.sensor import (
