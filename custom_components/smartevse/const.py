@@ -6,13 +6,12 @@ from homeassistant.const import (
     UnitOfPower, 
     UnitOfTemperature,
     UnitOfTime,
+    SIGNAL_STRENGTH_DECIBELS_MILLIWATT
 )
-
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorStateClass,
 )
-
 from .models import (
     SmartEVSENumberEntityDescription,
     SmartEVSESelectEntityDescription,
@@ -94,6 +93,9 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
     SmartEVSESensorEntityDescription(
         key="smartevse_wifi_rssi",
         name="SmartEVSE Wifi RSSI",
+        state_class=SensorStateClass.MEASUREMENT,
+        unit=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
+        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
     ),
     SmartEVSESensorEntityDescription(
         key="smartevse_wifi_bssid",
