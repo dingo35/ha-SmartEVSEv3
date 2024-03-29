@@ -7,9 +7,10 @@ from types import MappingProxyType
 from typing import Any
 
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.helpers.device_registry import DeviceInfo
 
 from . import SmartEVSE
-from .const import CONF_NAME, CONF_SERIAL, DOMAIN
+from .const import CONF_SERIAL, DOMAIN
 from .models import SmartEVSEEntityDescription
 
 _LOGGER = logging.getLogger(__name__)
@@ -36,12 +37,13 @@ class SmartEVSEEntity(CoordinatorEntity):
         self._attr_unique_id = (
             f"{self._config[CONF_SERIAL]}_{self.entity_description.key}"
         )
-        self._attr_device_info = {
-            "identifiers": {(DOMAIN, self._config[CONF_SERIAL])},
-            "name": "SmartEVSE-" + self._config[CONF_SERIAL],
-            "manufacturer": "Stegen",
-            "model": "SmartEVSE v3",
-        }
+        self._attr_device_info = DeviceInfo(
+            name="SmartEVSE-" + self._config[CONF_SERIAL],
+            identifiers={(DOMAIN, self._config[CONF_SERIAL])},
+            manufacturer="Stegen",
+            model="SmartEVSE v3",
+            configuration_url="http://" + client.host
+        )
 
     async def async_added_to_hass(self) -> None:
         """Add required data to coordinator."""
