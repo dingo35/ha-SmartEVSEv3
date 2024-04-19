@@ -71,6 +71,10 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         name="SmartEVSE Firmware version",
     ),
     SmartEVSESensorEntityDescription(
+        key="smartevse_serialnr",
+        name="SmartEVSE Serial nr",
+    ),
+    SmartEVSESensorEntityDescription(
         key="smartevse_mode",
         name="SmartEVSE Mode",
     ),
