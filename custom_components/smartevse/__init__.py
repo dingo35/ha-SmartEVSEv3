@@ -190,9 +190,6 @@ class SmartEVSE(DataUpdateCoordinator):
             self._data["smartevse_l1"] = self.response['phase_currents']['L1'] / 10
             self._data["smartevse_l2"] = self.response['phase_currents']['L2'] / 10
             self._data["smartevse_l3"] = self.response['phase_currents']['L3'] / 10
-            self._data["smartevse_charging_l1"] = self.response['phase_currents']['charging_L1']
-            self._data["smartevse_charging_l2"] = self.response['phase_currents']['charging_L2']
-            self._data["smartevse_charging_l3"] = self.response['phase_currents']['charging_L3']
             self._data["smartevse_last_data_update"] = datetime.datetime.fromtimestamp(self.response['phase_currents']['last_data_update'])
         except KeyError:
             pass

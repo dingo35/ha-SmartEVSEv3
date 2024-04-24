@@ -274,18 +274,6 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.CURRENT,
     ),
     SmartEVSESensorEntityDescription(
-        key="smartevse_charging_l1",
-        name="SmartEVSE Charging L1",
-    ),
-    SmartEVSESensorEntityDescription(
-        key="smartevse_charging_l2",
-        name="SmartEVSE Charging L2",
-    ),
-    SmartEVSESensorEntityDescription(
-        key="smartevse_charging_l3",
-        name="SmartEVSE Charging L3",
-    ),
-    SmartEVSESensorEntityDescription(
         key="smartevse_mains_meter",
         name="SmartEVSE Mains Meter",
     ),
