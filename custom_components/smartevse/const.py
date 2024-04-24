@@ -164,6 +164,22 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.CURRENT,
     ),
     SmartEVSESensorEntityDescription(
+        key="smartevse_current_max_circuit",
+        name="SmartEVSE Current MaxCircuit",
+        unit=UnitOfElectricCurrent.AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_current_max_sum_mains",
+        name="SmartEVSE Current MaxSumMains",
+        unit=UnitOfElectricCurrent.AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+    ),
+    SmartEVSESensorEntityDescription(
+        key="smartevse_loadbl",
+        name="SmartEVSE LoadBl",
+    ),
+    SmartEVSESensorEntityDescription(
         key="smartevse_solar_stop_time",
         name="SmartEVSE Solar Stop Time",
     ),

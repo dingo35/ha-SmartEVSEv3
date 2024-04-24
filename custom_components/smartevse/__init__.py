@@ -111,7 +111,6 @@ class SmartEVSE(DataUpdateCoordinator):
         self.response = await self.hass.async_add_executor_job(self.get_data)
         try:
             self._data["smartevse_fw_version"] = self.response['version']
-            self._data["smartevse_serialnr"] = self.response['serialnr']
             self._data["smartevse_mode"] = self.response['mode']
             self._data["smartevse_mode_id"] = self.response['mode_id']
             self._data["smartevse_car_connected"] = self.response['car_connected']
@@ -146,6 +145,13 @@ class SmartEVSE(DataUpdateCoordinator):
             self._data["smartevse_solar_stop_time"] = self.response['settings']['solar_stop_time']
             self._data["smartevse_enable_C2"] = self.response['settings']['enable_C2']
             self._data["smartevse_mains_meter"] = self.response['settings']['mains_meter']
+        except KeyError:
+            pass
+        try:
+            self._data["smartevse_current_max_circuit"] = self.response['settings']['current_max_circuit']
+            self._data["smartevse_current_max_sum_mains"] = self.response['settings']['current_max_sum_mains']
+            self._data["smartevse_loadbl"] = self.response['evse']['loadbl']
+            self._data["smartevse_serialnr"] = self.response['serialnr']
         except KeyError:
             pass
         try:
