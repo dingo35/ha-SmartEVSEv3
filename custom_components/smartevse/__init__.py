@@ -8,7 +8,7 @@ import re
 from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import EVENT_HOMEASSISTANT_STOP
+from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -27,7 +27,7 @@ import datetime
 _LOGGER = logging.getLogger(__name__)
 
 
-DOMAINS = ["sensor", "select", "switch", "number"]
+PLATFORMS = [Platform.SENSOR, Platform.SELECT, Platform.SWITCH, Platform.NUMBER]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -40,25 +40,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     client = SmartEVSE(hass, credentials)
     hass.data[DOMAIN][entry.entry_id]["client"] = client
 
-    for domain in DOMAINS:
-        hass.async_create_task(
-            hass.config_entries.async_forward_entry_setup(entry, domain)
-        )
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     return True
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload SmartEVSE  component."""
-    if not all(
-        await asyncio.gather(
-            *(
-                hass.config_entries.async_forward_entry_unload(entry, component)
-                for component in DOMAINS
-            )
-        )
-    ):
-        return False
+    unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
     client = hass.data[DOMAIN][entry.entry_id]["client"]
 
@@ -66,7 +55,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     hass.data[DOMAIN].pop(entry.entry_id)
 
-    return True
+    return unload_ok
 
 
 class SmartEVSE(DataUpdateCoordinator):
