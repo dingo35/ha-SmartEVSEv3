@@ -72,4 +72,4 @@ class SmartEVSESwitch(SmartEVSEEntity, SwitchEntity):
     def write(self):
         res = requests.post(self.api_url, {})
         if res.status_code == 200:
-            self.schedule_update_ha_state()
+            self.schedule_update_ha_state(force_refresh=True)

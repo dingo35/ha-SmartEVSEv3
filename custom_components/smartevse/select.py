@@ -89,4 +89,4 @@ class SmartEVSESelect(SmartEVSEEntity, SelectEntity):
         res = requests.post(self.api_url, {})
         if res.status_code == 200:
             self._attr_current_option = option
-            self.schedule_update_ha_state()
+            self.schedule_update_ha_state(force_refresh=True)
