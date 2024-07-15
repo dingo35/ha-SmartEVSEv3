@@ -40,5 +40,8 @@ If not:
 
 2. This will only work if your SmartEVSE device is 
 	- a version 3 device, 
-	- running version 1.5.2 or higher from the serkri firmware (https://github.com/serkri/SmartEVSE-3/releases), 
-   	The original firmware has no rest-API implemented, and does not announce itself on the mDNS network, so that will not work.
+	- running version 1.5.2 or higher from the serkri firmware (https://github.com/serkri/SmartEVSE-3/releases);
+      The serkri firmware is deprecated, from v1.8.0 on development proceeded in
+      https://github.com/dingo35/SmartEVSE-3.5/releases (community, bleeding edge) and
+      https://github.com/SmartEVSE/SmartEVSE-3/releases (Stegen Electronics, stable).
+      Version numbering between those repo's are kept consistent.
