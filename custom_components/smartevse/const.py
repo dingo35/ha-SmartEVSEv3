@@ -48,6 +48,7 @@ SELECTS: tuple[SmartEVSESelectEntityDescription, ...] = (
             1: "NORMAL",
             2: "SOLAR",
             3: "SMART",
+            4: "PAUSE",
         },
         entity_registry_enabled_default=True,
     ),
