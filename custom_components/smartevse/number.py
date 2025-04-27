@@ -79,6 +79,8 @@ class SmartEVSENumber(SmartEVSEEntity, NumberEntity):
             self.api_url = "http://" + self._client.host + "/settings?solar_start_current=" + str(value)
         elif (self.entity_description.key == "smartevse_solar_max_import"):
             self.api_url = "http://" + self._client.host + "/settings?solar_max_import=" + str(value)
+        elif (self.entity_description.key == "smartevse_current_max_sum_mains"):
+            self.api_url = "http://" + self._client.host + "/settings?current_max_sum_mains=" + str(value)            
         await self.hass.async_add_executor_job(self.write)
 
     def write(self):

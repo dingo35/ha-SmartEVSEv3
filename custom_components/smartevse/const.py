@@ -171,12 +171,6 @@ SENSORS: tuple[SmartEVSESensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.CURRENT,
     ),
     SmartEVSESensorEntityDescription(
-        key="smartevse_current_max_sum_mains",
-        name="SmartEVSE Current MaxSumMains",
-        unit=UnitOfElectricCurrent.AMPERE,
-        device_class=SensorDeviceClass.CURRENT,
-    ),
-    SmartEVSESensorEntityDescription(
         key="smartevse_loadbl",
         name="SmartEVSE LoadBl",
     ),
@@ -328,6 +322,16 @@ NUMBERS: tuple[SmartEVSENumberEntityDescription, ...] = (
         native_step=0.1,
         entity_registry_enabled_default=True,
     ),
+    SmartEVSENumberEntityDescription(
+        key="smartevse_current_max_sum_mains",
+        name="SmartEVSE Grid Capacity Current",
+        unit=UnitOfElectricCurrent.AMPERE,
+        device_class=SensorDeviceClass.CURRENT,
+        native_min_value=1,
+        native_max_value=600,
+        native_step=1,
+        entity_registry_enabled_default=True,
+    ),    
     SmartEVSENumberEntityDescription(
         key="smartevse_solar_max_import",
         name="SmartEVSE Solar Max Import",
