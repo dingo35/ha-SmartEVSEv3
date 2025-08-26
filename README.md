@@ -1,8 +1,11 @@
-# ha-SmartEVSEv3
+# ha-SmartEVSEv3 (deprecated)
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration)
 
 SmartEVSEv3 connection for Home Assistant
+
+> [!WARNING]
+> This component is deprecated. If you want to integrate your SmartEVSE with Home Asisstant, the preferred way is to have the HA MQTT integration installed, and interface with SmartEVSE through MQTT.
 
 ## Installation using HACS (recommended)
 
